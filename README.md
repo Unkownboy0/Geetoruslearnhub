@@ -1,2 +1,2 @@
 # Geetoruskingdom
-personal website
+E Learning website 
