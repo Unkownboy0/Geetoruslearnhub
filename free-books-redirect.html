@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <meta http-equiv="refresh" content="3;url=https://chandhru4370.github.io/free-programming-books/">
+  <style>
+    body {
+      background: #181818;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #444;
+      border-top: 6px solid #ffd700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 30px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1.2s forwards;
+      animation-delay: 0.3s;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="spinner"></div>
+  <h2 class="fade-in">Redirecting to <span style="color:#ffd700;">Free Book Foundation</span> ...</h2>
+  <script>
+    setTimeout(function() {
+      window.location.href = "https://chandhru4370.github.io/free-programming-books/";
+    }, 2000); // 2 seconds
+  </script>
+</body>
+</html>
