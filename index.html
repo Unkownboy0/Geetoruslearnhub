@@ -13,7 +13,7 @@
         :root {
             --primary-color: rgb(158, 187, 211);
             --bg-color: #000000;
-            --card-bg-color: transparent;
+            --card-bg-color: #1a1a1a;
         }
 
         body {
@@ -52,6 +52,7 @@
         .section-card {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             background-color: var(--card-bg-color);
+            background-color: black;
             border: 1px solid var(--primary-color);
             padding: 1rem;
             margin-bottom: 1rem;
@@ -81,8 +82,6 @@
             height: 0;
             overflow: hidden;
         }
-
-
 
         .video-thumbnail {
             position: relative;
@@ -124,6 +123,14 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1rem;
+        }
+
+        .highlighted {
+        background-color: rgb(196, 221, 146);
+        color: black; /* Optional: change text color for better contrast */
+        font-size: small;
+        border: radius 0;
+        font-weight: bolder;
         }
 
         .hacker-btn {
@@ -169,13 +176,13 @@
 
         .chat-container.active {
             height: 500px;
-            background-color: #f0f0f0;
+            background-color: #8baae7;
             border-radius: 10px;
         }
 
         .chat-header {
-            background-color: #7fee83;
-            color: white;
+            background-color: #8baae7;
+            color: rgb(0, 0, 0);
             padding: 10px;
             font-size: 18px;
             cursor: pointer;
@@ -187,7 +194,7 @@
         }
 
         .chat-body {
-            height: calc(100% - 40px);
+            height: calc(100% - 50px);
             display: none;
         }
 
@@ -204,8 +211,8 @@
         .chat-icon {
             width: 60px;
             height: 60px;
-            background-color: #afe981;
-            color: white;
+            background-color: #8baae7;
+            color: rgb(0, 0, 0);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -300,8 +307,13 @@
 
 <body class="text-darkgreen-400">
     <div class="chat-container" id="chatContainer">
+        <div class="chat-icon" onclick="toggleChat()">Chat</div>
+        <div class="chat-header">
+            Chatbot
+            <span class="close-icon" onclick="toggleChat()">×</span>
+        </div>
         <div class="chat-body">
-            <iframe src="#"></iframe>
+            <iframe src="https://gamkersbot-6syk9tnjgymwhczqu64zbz.streamlit.app/?embedded=true"></iframe>
         </div>
     </div>
     <script>
@@ -318,23 +330,22 @@
             <nav class="w-full md:w-auto">
                 <ul class="flex flex-wrap justify-center md:justify-end space-x-4">
                     <li><a href="#introduction" class="hover:text-yellow-300 transition duration-300">Introduction</a></li>
-                    <li><a href="#networking" class="hover:text-yellow-300 transition duration-300">Networking</a></li>
-                    <li><a href="#os-scripting" class="hover:text-yellow-300 transition duration-300">OS & Scripting</a></li>
-                    <li><a href="#Devlopement" class="hover:text-yellow-300 transition duration-300">Developement</a></li>
-                    <li><a href="#Ethical Hacking" class="hover:text-yellow-300 transition duration-300">Ethical hacking</a></li>
-                    <li><a href="#advanced-topics" class="hover:text-yellow-300 transition duration-300">Advanced Topics</a></li>
-                </ul>
+                    <li><a href="https://roadmap.sh" class="hover:text-yellow-300 transition duration-300">Roadmap & Guides</a></li>
+                    <li><a href="free-books-redirect.html" class="hover:text-yellow-300 transition duration-300">Free Books For Everyone</a></li>
+                    <li><a href="https://github.com/chandhru4370/" class="hover:text-yellow-300 transition duration-300">Mini Projects</a></li>
+                    <li><a href="tools/index.html" class="hover:text-yellow-300 transition duration-300">About Me</a></li> </ul>
             </nav>
         </div>
     </header>
 
+    
     <div class="hero-section flex items-center justify-center">
         <div class="hero-content text-center text-white">
             <h2 class="text-5xl font-bold mb-4 glitc">Master Cybersecurity & Developement</h2>
-            <p class="text-xl mb-8" style="color: gray;">Your journey to expert starts from here</p>
+            <p class="text-xl mb-8" style="color: rgb(126, 120, 120);">Your journey to expert starts from here</p>
             <a href="#introduction" class="hacker-btn">START PATH</a>
-            <a href="tools/index.html" class="hacker-btn">About Me</a>
             <a href="tol/index.html" class="hacker-btn">Hacking Tools</a>
+            <a href="https://8000-freecodecam-freecodecam-v5w0l5ovbv6.ws-us121.gitpod.io/" class="hacker-btn">Advanced Website</a>
         </div>
     </div>
 
@@ -511,6 +522,9 @@
                         <button id="prevVideos3" class="hacker-btn">Previous</button>
                         <button id="nextVideos3" class="hacker-btn">Next</button>
                     </div>
+                     <div class="video-container">
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/vsAn9wt06wo?si=X3uoGSOx6LVUCmUC" title="Java Script" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
                 </div>
             </div>
 
@@ -575,7 +589,7 @@
                                 </ul>                                
                             </ul>
                         </li>    
-
+                        <br>
                         <li><b>Secure Coding Practices</b>:
                             <ul>
                                 <ul>
@@ -586,7 +600,7 @@
                                 </ul>
                                   </ul>
                         </li>
-
+                        <br>
                         <li><b>Understanding HTTPS and SSL/TLS</b>:
                             <ul>
                                 <li>Explore how HTTPS, powered by SSL/TLS, ensures secure communication between the client and server by encrypting data.</li>
@@ -596,6 +610,7 @@
                                     gaps.</li>
                             </ul>
                         </li>
+                        <hr>
                     </ul>
 
                     <!-- Steps to Perform declopment -->
@@ -722,7 +737,9 @@
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/M4BmogG7D50?si=an3OtIFeAZ7r-3rq" title="Devlopment videos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
-                   
+                     <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_gKEUYarehE?si=-ezgUjmgulj0v_cw" title="Development videos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div><br>
                     </div>
                 </div>
                 </div>
@@ -871,42 +888,45 @@
 
                         <!-- Ethical Hacking Roadmap -->
                         <h3 class="mt-5 text-lg font-semibold">Ethical Hacking Roadmap</h3>
-                        <ol class="list-decimal pl-5 space-y-2">
-                            <li>Start with foundational IT knowledge (networks, OS, basic programming).</li>
-                            <li>Learn about different types of cybersecurity threats and vulnerabilities.</li>
-                            <li>Familiarize yourself with ethical hacking tools and methodologies.</li>
-                            <li>Gain practical experience through labs, CTFs, and bug bounty programs.</li>
-                            <li>Participate in platforms like Hack The Box to challenge your skills.</li>
-                            <li>Engage in online courses and workshops to deepen your understanding.</li>
-                            <li>Pursue certifications (CEH, OSCP) to validate your skills.</li>
-                            <li>Engage with the cybersecurity community through forums and conferences to stay updated on trends and techniques.</li>
-                            <li>Contribute to open-source security projects to build your portfolio.</li>
-                            <li>Continue learning about the latest security tools and vulnerabilities through blogs and research papers.</li>
+                        <ol class="highlighted">
+                            <li><span class="highlighted">learn with foundational IT knowledge (networks, OS, basic programming).</span> </li>
+                            <li><span class="highlighted">Learn about different types of cybersecurity threats and vulnerabilities.</span> </li>
+                            <li><span class="highlighted">Familiarize yourself with ethical hacking tools and methodologies.</span></li>
+                            <li><span class="highlighted">Gain practical experience through labs, CTFs, and bug bounty programs.</span></li>
+                            <li><span class="highlighted">Participate in platforms like Hack The Box to challenge your skills.</span></li>
+                            <li><span class="highlighted">Engage in online courses and workshops to deepen your understanding.</span></li>
+                            <li><span class="highlighted">Pursue certifications (CEH, OSCP) to validate your skills.</span></li>
+                            <li><span class="highlighted">Engage with the cybersecurity community through forums and conferences to stay updated on trends and techniques.</span></li>
+                            <li><span class="highlighted">Contribute to open-source security projects to build your portfolio.</span></li>
+                            <li><span class="highlighted">Continue learning about the latest security tools and vulnerabilities through blogs and research papers.</span></li>
                         </ol>
                 </div>
                 <div class="section-card p-6">
                     <h3 class="text-xl font-semibold mb-4">Video Resources</h3>
                     <div class="video-container">
-                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/3FNYvj2U0HM?si=qkiNpz37FU0ottag" title="Computer Types and Parts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/3FNYvj2U0HM?si=qkiNpz37FU0ottag" title="Ehical Hacking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
                     <div class="video-container">
-                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/sH4JCwjybGs?si=jY1WhKmGQFRHKAME" title="Computer Types and Parts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/sH4JCwjybGs?si=jY1WhKmGQFRHKAME" title="Ehical Hacking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
                     <div class="video-container">
-                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/TTw-EY7F1rM?si=jV2-d__-usVX88jt" title="Computer Types and Parts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/TTw-EY7F1rM?si=jV2-d__-usVX88jt" title="Ethical Hacking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
                     <div class="video-container">
-                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/videoseries?si=CxfAdOmUHTXSfsxR&amp;list=PLHUKi1UlEgOINz5PLYb9yu7evQZ_5MQ21" title="Computer Types and Parts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/videoseries?si=CxfAdOmUHTXSfsxR&amp;list=PLHUKi1UlEgOINz5PLYb9yu7evQZ_5MQ21" title="Ehical Hacking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
                     <div class="video-container">
-                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/VXxH4n684HE?si=UihkWRHGkTmHvqww" title="Computer Types and Parts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/VXxH4n684HE?si=UihkWRHGkTmHvqww" title="Ethical Hacking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
-
+                    <div class="video-container">
+                    <iframe id="videoFrames5" class="rounded-lg" src="https://www.youtube.com/embed/OGtetvg2pS8?si=A_3vsHS8Rs2CbJgc" title="Ethical Hacking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div><br>   
+                         </div><br>
                 </div>
             </div>
 
@@ -930,7 +950,7 @@
                         <a href="https://onlinecourses.nptel.ac.in/noc22_cs13/preview" class="text-blue-400 hover:underline" target="_blank">NPTEL Ethical Hacking Course</a> - Free online course focusing on ethical hacking principles and practices.
                     </li>
                 </ul>
-            </div>
+            </div> cccc
         </section>
 
         <!-- Advanced Topics Section -->
@@ -1007,7 +1027,7 @@
                             </ul>
                         </li>
                         <h3 class="mt-5 text-lg font-semibold">Roadmap for Malware Analysis, Network Forensics, and Incident Response</h3>
-                        <ol class="list-decimal pl-5 space-y-2">
+                        <ol class="highlighted">
                             <li>Start with foundational knowledge of networking and operating systems (Linux, Windows).</li>
                             <li>Learn about common cybersecurity threats, including malware types and attack vectors.</li>
                             <li>Understand key concepts in network traffic analysis, such as packet capture and inspection.</li>
@@ -1067,6 +1087,12 @@
                         <iframe id="videoFrames6" class="rounded-lg" src="https://www.youtube.com/embed/videoseries?si=hLYFXuFcYAxTUodM&amp;list=PLsfnCRA9QVnSj4gbP5W1W1CXjPRhe1oE2" title="Computer Types and Parts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div><br>
+                    <div>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/vGeQqn6G9wc?si=wdr50HUpGFdh38Nf" title="Cloud Security" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div><br>
+                    <div>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/PD-QVaKdyMU?si=68qf5UBI8XpjDTI3" title="Roadmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div><br>
                 </div>
             </div>
 
@@ -1103,13 +1129,94 @@
                 </ul>
             </div>
         </section>
+
+
+           <!-- Certifications Section -->
+        <section id="certifications" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 text-center"><i class="fas fa-certificate mr-2"></i>Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Key Certifications</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>CompTIA Security+</strong> - A foundational certification covering essential security concepts and best practices.</li>
+                            <li><strong>Certified Ethical Hacker (CEH)</strong> - Focuses on the skills and knowledge needed to identify vulnerabilities and threats in systems.</li>
+                            <li><strong>CISSP (Certified Information Systems Security Professional)</strong> - An advanced certification validating expertise in designing and managing security programs.</li>
+                            <li><strong>Certified Information Security Manager (CISM)</strong> - Focuses on managing and governing an enterprise's information security program.</li>
+                            <li><strong>Certified Information Systems Auditor (CISA)</strong> - Emphasizes information systems auditing, control, and security.</li>
+                            <li><strong>CompTIA Cybersecurity Analyst (CySA+)</strong> - Centers on threat detection, analysis, and response strategies.</li>
+                            <li><strong>CompTIA Advanced Security Practitioner (CASP+)</strong> - An advanced certification for experienced security professionals covering enterprise security, risk management, and compliance.</li>
+                            <li><strong>GIAC Security Essentials (GSEC)</strong> - Validates knowledge of information security concepts and hands-on skills.</li>
+                            <li><strong>Offensive Security Certified Professional (OSCP)</strong> - A hands-on penetration testing certification focused on practical skills.</li>
+                            <li><strong>Certified Cloud Security Professional (CCSP)</strong> - Covers cloud security architecture, governance, and risk management.</li>
+                            <li><strong>EC-Council Certified Security Analyst (ECSA)</strong> - Focuses on advanced penetration testing and security assessment techniques.</li>
+                        </ul>
+
+                    </ul>
+                </div>
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Recommended Study Resources</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><a href="https://www.comptia.org/certifications/security" class="text-blue-400 hover:underline" target="_blank">CompTIA Security+ Course</a></li>
+                        <li><a href="https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/" class="text-blue-400 hover:underline" target="_blank">CEH Certification Info</a></li>
+                        <li><a href="https://www.isc2.org/Certifications/CISSP" class="text-blue-400 hover:underline" target="_blank">CISSP Certification Info</a></li>
+                        <li><a href="https://www.isaca.org/credentialing/cism" class="text-blue-400 hover:underline" target="_blank">CISM Certification Info</a></li>
+                        <li><a href="https://www.isaca.org/credentialing/cisa" class="text-blue-400 hover:underline" target="_blank">CISA Certification Info</a></li>
+                        <li><a href="https://www.comptia.org/certifications/cybersecurity-analyst" class="text-blue-400 hover:underline" target="_blank">CySA+ Certification Info</a></li>
+                        <li><a href="https://www.comptia.org/certifications/comptia-advanced-security-practitioner" class="text-blue-400 hover:underline" target="_blank">CASP+ Certification Info</a></li>
+                        <li><a href="https://www.giac.org/certification/security-essentials-gsec" class="text-blue-400 hover:underline" target="_blank">GSEC Certification Info</a></li>
+                        <li><a href="https://www.offensive-security.com/pwk-oscp/" class="text-blue-400 hover:underline" target="_blank">OSCP Certification Info</a></li>
+                        <li><a href="https://www.isc2.org/Certifications/CCSP" class="text-blue-400 hover:underline" target="_blank">CCSP Certification Info</a></li>
+                        <li><a href="https://www.eccouncil.org/programs/ecsa-ec-council-certified-security-analyst/" class="text-blue-400 hover:underline" target="_blank">ECSA Certification Info</a></li>
+                    </ul>
+                    <h3 class="text-xl font-semibold mb-4">Drive links & Study Resources</h3>
+                     <li><a href="https://drive.google.com/file/d/12YBQ1_gsvdld9ifLZu7Vjl1XoLn2TpiQ/view?usp=drive_link" class="text-blue-400 hover:underline" target="_blank">CCNA Hand written Notes</a></li>
+                      <li><a href="pdfs/AlgorithmsNotesForProfessionals.pdf" class="text-blue-400 hover:underline" target="_blank">Algorithm Notes</a></li>
+                      <li><a href="pdfs/AndroidNotesForProfessionals.pdf" class="text-blue-400 hover:underline" target="_blank">Andriod Notes</a></li>
+                      <li><a href="" class="text-blue-400 hover:underline" target="_blank">CCNA Hand written Notes</a></li>
+                      <li><a href="https://drive.google.com/drive/folders/1KdjQX1SDx6IjXkFBHv2KI3ysCKr8UefB?usp=drive_link" class="text-blue-400 hover:underline" target="_blank">Usefull Learning Notes & pdfs</a></li>
+                      <li><a href="https://drive.google.com/file/d/0BwxUBHTpU9kCWTRJSC1zNEg0RU0/view?usp=drive_link&resourcekey=0-tJifpXV_nnMZoJFQ7Lnwjw" class="text-blue-400 hover:underline" target="_blank">Cloud Computing Notes</a></li>
+                      <li><a href="https://drive.google.com/drive/folders/1u6rU69UWH8c4T1yOycrwm5-R1DRWX9fj?usp=drive_link" class="text-blue-400 hover:underline" target="_blank">Programming Hand written Notes</a></li>
+                      <li><a href="https://drive.google.com/drive/folders/1El5GkOf_0IxgjR1y-GLQwzsGwkgEalSk?usp=drive_link" class="text-blue-400 hover:underline" target="_blank">Cyber Security Books & Guides</a></li>
+                      <li><a href="pdfs/Hacking with Python_ The Ultimate Beginners Guide (1).pdf" class="text-blue-400 hover:underline" target="_blank">Hacking wth Python Notes</a></li>
+                      <li><a href="pdfs/Dark_Web_Exploring_and_Data_Mining_the_Dark_Side_of_the_Web_@HackingCraze.pdf" class="text-blue-400 hover:underline" target="_blank">Dark web details and Explorings</a></li>
+                      <li><a href="pdfs/Wifi Hacking for Beginners.pdf" class="text-blue-400 hover:underline" target="_blank">Wifi Hacking</a></li>
+                      <li><a href="pdfs/Social Engineering_ The Science of Human Hacking.pdf" class="text-blue-400 hover:underline" target="_blank">Social Engineerings</a></li>
+                      <li><a href="pdfs/Kali Linux_Wireless Penetration Testing Beginner's Guide (4).pdf" class="text-blue-400 hover:underline" target="_blank">Kali Linux Notes</a></li>
+                      <li><a href="https://docs.google.com/document/d/1aDDYshECohjazHD4JTcksOMpgszTtp7a/edit?usp=drive_link&ouid=102034139591152327066&rtpof=true&sd=true" class="text-blue-400 hover:underline" target="_blank">Phishing Attack Github links</a></li>
+                      <li><a href="pdfs/Books & NOtes.zip" class="text-blue-400 hover:underline" target="_blank">Big Data</a></li>
+                      <li><a href="pdfs/Cloud Computing.zip" class="text-blue-400 hover:underline" target="_blank">Cloud Computing 2</a></li>
+                      <li><a href="hhttps://microsoft.github.io/AI-For-Beginners/" class="text-blue-400 hover:underline" target="_blank">Ai For Biginners</a></li>
+                      <li><a href="pdfs/prompt-engineering-playbook.pdf" class="text-blue-400 hover:underline" target="_blank">Prompt Engineering Full Book</a></li>
+                      <li><a href="https://github.com/Unkownboy0/tech-books-library" class="text-blue-400 hover:underline" target="_blank">library Books</a></li>
+                     
+                </div>
+            </div>
+        </section>
+
+        </section>
     </main>
 
 
     <!-- Full-width Newsletter Section -->
+         <section class="bg-transprint text-white py-8 sm:py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <div class="mb-6 lg:mb-0 lg:w-1/2 text-center lg:text-left">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Subscribe to Our Newsletter</h2>
+                    <p class="text-base sm:text-lg">Stay updated with our latest content and cybersecurity insights.</p>
+                </div>
+                <div class="w-full lg:w-1/2 max-w-md mx-auto lg:max-w-none">
+                    <iframe src="https://geetorus-newsletter-fbb426.beehiiv.com/subscribe" class="newsletter-iframe" scrolling="yes"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- Footer -->
-    <footer class="text-green-400 p-6">
+    <footer class="text-blue-40 p-6">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
                 <h3 class="text-xl font-bold mb-4">Quick Links</h3>
