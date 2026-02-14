@@ -4,7 +4,6 @@
   <img src="https://github.com/Unkownboy0/Geetoruslearnhub/blob/main/gtl.jpg" width="100%" alt="hacker vibe">
 </p>
 
-
 <h1 align="center">🚀 Geetorus Learn Hub 🚀</h1>  
 
 > _"Learn. Build. Secure. Lead."_  
